@@ -11,6 +11,9 @@ export default {
   data() {
     return {
       articles: [],
+      asideopen: true,
+      categories: [],
+      user_manage: null
     }
   },
 
@@ -57,6 +60,14 @@ export default {
         // return sanitizedOutput;
         console.log(sanitizedOutput);
       });
+    },
+
+    asidetoogle() {
+      this.asideopen = !this.asideopen
+    },
+
+    user_manage_toogle() {
+      this.user_manage = !this.user_manage
     }
 
   },
@@ -71,6 +82,7 @@ export default {
       .catch((error) => {
         console.error(error);
       });
+
   },
 };
 </script>
@@ -78,6 +90,8 @@ export default {
 .active {
   background-color: #3798A6;
   color: white;
+  border-radius: 1rem;
+  padding: 0.3rem;
 }
 
 .active>a {
@@ -86,68 +100,179 @@ export default {
 </style>
 <template>
   <header class="w-full text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font">
-    <div class="flex items-center justify-between px-5 py-1 mx-4 mx-auto md:flex-row">
+    <div class="flex items-center justify-between py-1 mr-4 md:flex-row">
 
-      <nav class="flex items-center gap-2 text-base lg:w-2/5 md:ml-auto">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-          class="w-6 h-6 mr-4">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-        </svg>
+      <nav class="fixed z-30 w-full pt-3 bg-white border-b border-gray-200">
+        <div class="px-3 py-3 lg:px-5 lg:pl-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center justify-start">
+              <button id="toggleSidebarMobile" @click="asidetoogle" aria-expanded="true" aria-controls="sidebar"
+                class="p-2 text-gray-600 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100">
+                <svg id="toggleSidebarMobileHamburger" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </button>
+              <a href="#" class="text-xl font-bold flex items-center gap-1 lg:ml-2.5">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256"
+                  width="35px" height="35px" fill-rule="nonzero">
+                  <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                    font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                    style="mix-blend-mode: normal">
+                    <g transform="scale(3.2,3.2)">
+                      <path
+                        d="M42,75.5c-19.575,0 -35.5,-15.925 -35.5,-35.5c0,-19.575 15.925,-35.5 35.5,-35.5c19.575,0 35.5,15.925 35.5,35.5c0,19.575 -15.925,35.5 -35.5,35.5zM42,15.5c-13.509,0 -24.5,10.991 -24.5,24.5c0,13.509 10.991,24.5 24.5,24.5c13.509,0 24.5,-10.991 24.5,-24.5c0,-13.509 -10.991,-24.5 -24.5,-24.5z"
+                        fill="#3798A6"></path>
+                      <path
+                        d="M42,5c19.299,0 35,15.701 35,35c0,19.299 -15.701,35 -35,35c-19.299,0 -35,-15.701 -35,-35c0,-19.299 15.701,-35 35,-35M42,65c13.785,0 25,-11.215 25,-25c0,-13.785 -11.215,-25 -25,-25c-13.785,0 -25,11.215 -25,25c0,13.785 11.215,25 25,25M42,4c-19.882,0 -36,16.118 -36,36c0,19.882 16.118,36 36,36c19.882,0 36,-16.118 36,-36c0,-19.882 -16.118,-36 -36,-36zM42,64c-13.255,0 -24,-10.745 -24,-24c0,-13.255 10.745,-24 24,-24c13.255,0 24,10.745 24,24c0,13.255 -10.745,24 -24,24z"
+                        fill="#3798A6"></path>
+                      <path
+                        d="M58,27.5c-6.341,0 -11.5,-5.159 -11.5,-11.5c0,-6.341 5.159,-11.5 11.5,-11.5c6.341,0 11.5,5.159 11.5,11.5c0,6.341 -5.159,11.5 -11.5,11.5z"
+                        fill="#3798A6"></path>
+                      <path
+                        d="M58,5c6.065,0 11,4.935 11,11c0,6.065 -4.935,11 -11,11c-6.065,0 -11,-4.935 -11,-11c0,-6.065 4.935,-11 11,-11M58,4c-6.627,0 -12,5.373 -12,12c0,6.627 5.373,12 12,12c6.627,0 12,-5.373 12,-12c0,-6.627 -5.373,-12 -12,-12z"
+                        fill="#3798A6"></path>
+                      <g>
+                        <path
+                          d="M60,75.5c-6.341,0 -11.5,-5.159 -11.5,-11.5c0,-6.341 5.159,-11.5 11.5,-11.5c6.341,0 11.5,5.159 11.5,11.5c0,6.341 -5.159,11.5 -11.5,11.5z"
+                          fill="#3798A6"></path>
+                        <path
+                          d="M60,53c6.065,0 11,4.935 11,11c0,6.065 -4.935,11 -11,11c-6.065,0 -11,-4.935 -11,-11c0,-6.065 4.935,-11 11,-11M60,52c-6.627,0 -12,5.373 -12,12c0,6.627 5.373,12 12,12c6.627,0 12,-5.373 12,-12c0,-6.627 -5.373,-12 -12,-12z"
+                          fill="#3798A6"></path>
+                      </g>
+                      <g>
+                        <path
+                          d="M14,51.5c-6.341,0 -11.5,-5.159 -11.5,-11.5c0,-6.341 5.159,-11.5 11.5,-11.5c6.341,0 11.5,5.159 11.5,11.5c0,6.341 -5.159,11.5 -11.5,11.5z"
+                          fill="#3798A6"></path>
+                        <path
+                          d="M14,29c6.065,0 11,4.935 11,11c0,6.065 -4.935,11 -11,11c-6.065,0 -11,-4.935 -11,-11c0,-6.065 4.935,-11 11,-11M14,28c-6.627,0 -12,5.373 -12,12c0,6.627 5.373,12 12,12c6.627,0 12,-5.373 12,-12c0,-6.627 -5.373,-12 -12,-12z"
+                          fill="#3798A6"></path>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+                <span class="self-center whitespace-nowrap">MasterCode</span>
+              </a>
+              <form action="#" method="GET" class="hidden lg:block lg:pl-32">
+                <label for="topbar-search" class="sr-only">Search</label>
+                <div class="relative mt-1 lg:w-64">
+                  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd"
+                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                        clip-rule="evenodd"></path>
+                    </svg>
+                  </div>
+                  <input type="text" name="email" id="topbar-search"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full pl-10 p-2.5"
+                    placeholder="Search">
+                </div>
+              </form>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="toggleSidebarMobileSearch" type="button"
+                class="p-2 text-gray-500 rounded-lg lg:hidden hover:text-gray-900 hover:bg-gray-100">
+                <span class="sr-only">Search</span>
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </button>
+              <div class="items-center hidden lg:flex">
+                <button class="relative z-10 block p-1 bg-white border-2 rounded-xl focus:outline-none">
+                  <svg class="w-6 h-6 text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                    fill="currentColor">
+                    <path
+                      d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+                  </svg>
+                </button>
+              </div>
+              <div class="relative">
+                <button @click="user_manage_toogle()"
+                  class="relative z-10 block p-2 bg-white rounded-md focus:outline-none">
+                  <img class="relative object-cover w-8 h-8 rounded-full"
+                    src="https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg"
+                    alt="">
+                </button>
+                <div class="absolute right-0 z-20 mt-2 overflow-hidden bg-white rounded-md shadow-lg"
+                  style="width:fit-content;" v-if="user_manage">
+                  <div class="py-2">
+                    <a href="#"
+                      class="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
 
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256"
-          width="35px" height="35px" fill-rule="nonzero">
-          <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"
-            stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
-            font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-            <g transform="scale(3.2,3.2)">
-              <path
-                d="M42,75.5c-19.575,0 -35.5,-15.925 -35.5,-35.5c0,-19.575 15.925,-35.5 35.5,-35.5c19.575,0 35.5,15.925 35.5,35.5c0,19.575 -15.925,35.5 -35.5,35.5zM42,15.5c-13.509,0 -24.5,10.991 -24.5,24.5c0,13.509 10.991,24.5 24.5,24.5c13.509,0 24.5,-10.991 24.5,-24.5c0,-13.509 -10.991,-24.5 -24.5,-24.5z"
-                fill="#3798A6"></path>
-              <path
-                d="M42,5c19.299,0 35,15.701 35,35c0,19.299 -15.701,35 -35,35c-19.299,0 -35,-15.701 -35,-35c0,-19.299 15.701,-35 35,-35M42,65c13.785,0 25,-11.215 25,-25c0,-13.785 -11.215,-25 -25,-25c-13.785,0 -25,11.215 -25,25c0,13.785 11.215,25 25,25M42,4c-19.882,0 -36,16.118 -36,36c0,19.882 16.118,36 36,36c19.882,0 36,-16.118 36,-36c0,-19.882 -16.118,-36 -36,-36zM42,64c-13.255,0 -24,-10.745 -24,-24c0,-13.255 10.745,-24 24,-24c13.255,0 24,10.745 24,24c0,13.255 -10.745,24 -24,24z"
-                fill="#3798A6"></path>
-              <path
-                d="M58,27.5c-6.341,0 -11.5,-5.159 -11.5,-11.5c0,-6.341 5.159,-11.5 11.5,-11.5c6.341,0 11.5,5.159 11.5,11.5c0,6.341 -5.159,11.5 -11.5,11.5z"
-                fill="#3798A6"></path>
-              <path
-                d="M58,5c6.065,0 11,4.935 11,11c0,6.065 -4.935,11 -11,11c-6.065,0 -11,-4.935 -11,-11c0,-6.065 4.935,-11 11,-11M58,4c-6.627,0 -12,5.373 -12,12c0,6.627 5.373,12 12,12c6.627,0 12,-5.373 12,-12c0,-6.627 -5.373,-12 -12,-12z"
-                fill="#3798A6"></path>
-              <g>
-                <path
-                  d="M60,75.5c-6.341,0 -11.5,-5.159 -11.5,-11.5c0,-6.341 5.159,-11.5 11.5,-11.5c6.341,0 11.5,5.159 11.5,11.5c0,6.341 -5.159,11.5 -11.5,11.5z"
-                  fill="#3798A6"></path>
-                <path
-                  d="M60,53c6.065,0 11,4.935 11,11c0,6.065 -4.935,11 -11,11c-6.065,0 -11,-4.935 -11,-11c0,-6.065 4.935,-11 11,-11M60,52c-6.627,0 -12,5.373 -12,12c0,6.627 5.373,12 12,12c6.627,0 12,-5.373 12,-12c0,-6.627 -5.373,-12 -12,-12z"
-                  fill="#3798A6"></path>
-              </g>
-              <g>
-                <path
-                  d="M14,51.5c-6.341,0 -11.5,-5.159 -11.5,-11.5c0,-6.341 5.159,-11.5 11.5,-11.5c6.341,0 11.5,5.159 11.5,11.5c0,6.341 -5.159,11.5 -11.5,11.5z"
-                  fill="#3798A6"></path>
-                <path
-                  d="M14,29c6.065,0 11,4.935 11,11c0,6.065 -4.935,11 -11,11c-6.065,0 -11,-4.935 -11,-11c0,-6.065 4.935,-11 11,-11M14,28c-6.627,0 -12,5.373 -12,12c0,6.627 5.373,12 12,12c6.627,0 12,-5.373 12,-12c0,-6.627 -5.373,-12 -12,-12z"
-                  fill="#3798A6"></path>
-              </g>
-            </g>
-          </g>
-        </svg>
-        <!-- <a href="#" class="mr-5 font-medium text-pink-700 hover:text-gray-900">MasterCode</a> -->
-        <h1 class="text-xl font-bold text-navy-700 dark:text-white">MasterCode</h1>
-      </nav>
+                      <div class="mx-1">
+                        <h1 class="text-sm font-semibold text-gray-700 dark:text-gray-200">Marcos MEDENOU</h1>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">marcosmedenou@gmail.com.com</p>
+                      </div>
+                    </a>
+                    <a href="/register" class="flex items-center px-4 py-3 -mx-2 border-b hover:bg-gray-100">
+                      <p class="mx-2 text-sm text-gray-600">
+                        <span class="font-bold">Inscription</span>
+                      </p>
+                    </a>
+                    <a href="/login" class="flex items-center px-4 py-3 -mx-2 border-b hover:bg-gray-100">
+                      <p class="mx-2 text-sm text-gray-600">
+                        <span class="font-bold text-center" href="#">Connexion</span>
+                      </p>
+                    </a>
+                    <a href="/dashboard" class="flex items-center px-4 py-3 -mx-2 border-b hover:bg-gray-100">
+                      <p class="mx-2 text-sm text-gray-600">
+                        <span class="font-bold text-center" href="#">Dashboard</span>
+                      </p>
+                    </a>
 
-      <form class="flex flex-row flex-wrap items-center ml-auto">
-        <div class="flex items-center justify-center p-2 w-96">
-          <input placeholder="Rechercher du contenu" type="text"
-            class="relative w-full px-4 py-3 text-sm transition duration-200 bg-white border border-gray-300 border-solid shadow outline-none rounded-2xl placeholder-blueGray-200 text-blueGray-700 focus:ring focus:ring-lightBlue-500 focus:ring-1 focus:border-lightBlue-500 ">
+                  </div>
+                  <a href="#" class="flex justify-center gap-1 py-2 font-bold text-center text-white bg-red-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                    </svg>
+                    <span>Deconnexion</span></a>
+                </div>
+              </div>
 
-          <div class="px-3 py-3 bg-white border border-gray-200 border-solid rounded-full shadow outline-none">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-            </svg>
+            </div>
           </div>
         </div>
+      </nav>
+      <form class="flex items-center">
+        <label for="voice-search" class="sr-only">Search</label>
+        <div class="relative w-full">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
+              viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <input type="text" id="voice-search"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Search Mockups, Logos, Design Templates..." required="">
+          <button type="button" class="absolute inset-y-0 right-0 flex items-center pr-3">
+            <svg aria-hidden="true"
+              class="w-4 h-4 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+              fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
+        <button type="submit"
+          class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          <svg aria-hidden="true" class="w-5 h-5 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>Search
+        </button>
       </form>
 
       <div class="inline-flex items-center h-full ml-5 lg:w-2/5 lg:justify-end lg:ml-0">
@@ -164,11 +289,11 @@ export default {
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </a>
-        <a href="#_"
+        <a href="/register"
           class="text-xs font-bold text-white uppercase transition-all duration-150 rounded-full shadow-sm outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease">
           <div>
             <img class="relative object-cover w-8 h-8 rounded-full"
-              src="https://img.freepik.com/free-photo/no-problem-concept-bearded-man-makes-okay-gesture-has-everything-control-all-fine-gesture-wears-spectacles-jumper-poses-against-pink-wall-says-i-got-this-guarantees-something_273609-42817.jpg?w=1800&t=st=1669749937~exp=1669750537~hmac=4c5ab249387d44d91df18065e1e33956daab805bee4638c7fdbf83c73d62f125"
+              src="https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg"
               alt="">
           </div>
         </a>
@@ -176,13 +301,11 @@ export default {
     </div>
   </header>
 
-
-
-  <div class="flex w-full h-[88vh] mt-6 overflow-x-auto bg-white rounded-lg shadow-xl custom-scrollbar">
-    <div class="w-64 px-4">
+  <div class="flex w-full h-[93vh] mt-6 overflow-x-auto bg-white rounded-lg shadow-xl custom-scrollbar">
+    <div class="w-64 px-4" v-if="asideopen">
 
       <div class="px-2 pt-4 pb-8 border-r border-gray-300">
-        <ul class="space-y-2">
+        <ul class="flex flex-col gap-2 space-y-2">
 
           <!-- <li :class="{ 'active': $route.path === '/prestations' }" class="px-3 py-2 font-medium hover:text-gray-300">
              <router-link to="/prestations" exact>Prestations</router-link> 
@@ -298,8 +421,6 @@ export default {
         </ul>
       </div>
     </div>
-
-
 
     <RouterView />
   </div>

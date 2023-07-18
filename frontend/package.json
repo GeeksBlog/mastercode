@@ -9,6 +9,7 @@
     "test:unit": "vitest"
   },
   "dependencies": {
+    "@userfront/vue": "^0.1.19",
     "pinia": "^2.1.3",
     "vue": "^3.3.4",
     "vue-axios": "^3.5.2",

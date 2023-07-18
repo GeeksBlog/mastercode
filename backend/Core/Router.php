@@ -23,19 +23,19 @@ class Router
     // Fonction de décryptage
     public function datadecrypt($input)
     {
-        $input = str_replace('[plus]', '+', $input);
-        $first_key = base64_decode(KEYONE);
-        $second_key = base64_decode(KEYTWO);
-        $mix = base64_decode($input);
+        // $input = str_replace('[plus]', '+', $input);
+        // $first_key = base64_decode(KEYONE);
+        // $second_key = base64_decode(KEYTWO);
+        // $mix = base64_decode($input);
 
-        $method = "aes-256-cbc";
-        $iv_length = openssl_cipher_iv_length($method);
+        // $method = "aes-256-cbc";
+        // $iv_length = openssl_cipher_iv_length($method);
 
-        $iv = substr($mix, 0, $iv_length);
-        $first_encrypted = substr($mix, $iv_length);
+        // $iv = substr($mix, 0, $iv_length);
+        // $first_encrypted = substr($mix, $iv_length);
 
-        $data = openssl_decrypt($first_encrypted, $method, $first_key, OPENSSL_RAW_DATA, $iv);
-        return $data;
+        // $data = openssl_decrypt($first_encrypted, $method, $first_key, OPENSSL_RAW_DATA, $iv);
+        return $input;
     }
 
     // Conversion d'une chaîne de caractères contenant un ou plusieurs '-' en MajminMajmin
@@ -58,13 +58,12 @@ class Router
          * GOTO & ACTION
          * ****************************************************************************/
         if (isset($_GET['goto'])) {
-            $controller = $_GET['goto'];
-            // $controller = $this->datadecrypt($_GET['goto']);
+            $controller = $this->datadecrypt($_GET['goto']);
             $controller = $this->convertToPascalCase($controller);
             if ($this->autoload($controller)) {
                 $controller_object = new $controller();
                 if (isset($_GET["action"])) {
-                    $action = $_GET["action"];
+                    $action = $this->datadecrypt($_GET["action"]);
                     $action = $this->convertToCamelCase($action);
 
                     if (method_exists($controller, $action)) {

@@ -1,4 +1,5 @@
 <?php
+
 require_once('../App/Conf/Database.php');
 require_once('../App/Models/Category.php');
 
@@ -144,6 +145,14 @@ class CategoryController
         $this->category = new Category();
         $array = $this->category->allCategories();
         return $array;
+    }
+    // Affiche toutes les catégories=>api
+    public function apiallCategories()
+    {
+        // instanciation de la classe model category
+        $this->category = new Category();
+        $array = $this->category->allCategories();
+        echo json_encode($array);
     }
 
     // Suppression d'une catégorie

@@ -7,8 +7,6 @@ require_once('../App/Models/Like.php');
 require_once('../App/Models/ViewArticle.php');
 class ArticleController
 {
-
-
     use Crypt;
     // Déclaration des variables
     private $article, $id, $title, $image, $code_html, $category_id, $user_id, $created_at, $updated_at, $views;
@@ -23,7 +21,6 @@ class ArticleController
         $data = $reg;
         return $data;
     }
-
 
     // Ajout des articles
     public function addArticles()
@@ -45,18 +42,6 @@ class ArticleController
             $action = "action=" . $this->datacrypt('articles');
             $url = $controller . "&" . $action;
             echo json_encode("$url");
-        }
-    }
-
-    // Pour afficher un article spécifique
-    public function getArticleById()
-    {
-        if (isset($_GET["articleid"])) {
-            // instanciation de la classe model article
-            $this->article = new Article();
-           
-            $array = $this->article->getOneArticleById($_GET["articleid"]);
-            echo json_encode($array) ;
         }
     }
 
@@ -87,7 +72,7 @@ class ArticleController
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
         // Tableau d'extensions que nous acceptons
-        $tab_ext = ["jpg", "jpeg"];
+        $tab_ext = ["jpg", "jpeg", "png"];
 
         if (in_array($ext, $tab_ext)) {
             if ($filesize <= 10000000 && $fileerror === 0) {
@@ -125,8 +110,15 @@ class ArticleController
         // instanciation de la classe model article
         $this->article = new Article();
         $array = $this->article->getAllArticles();
-        
-       echo json_encode($array);
+        return $array;
+    }
+    // Affiche tous les articles=>api
+    public function apigetAllArticles()
+    {
+        // instanciation de la classe model article
+        $this->article = new Article();
+        $array = $this->article->getAllArticles();
+        echo json_encode($array) ;
     }
 
     // Affiche tous les titres portant ces caractères
@@ -285,6 +277,17 @@ class ArticleController
             $id = $this->datadecrypt($_GET["id"]);
             $array = $this->article->getOneArticleById($id);
             return $array;
+        }
+    }
+    // Pour afficher un article spécifique=>api
+    public function apigetOneArticleById()
+    {
+        if (isset($_GET["id"])) {
+            // instanciation de la classe model article
+            $this->article = new Article();
+            $id = $this->datadecrypt($_GET["id"]);
+            $array = $this->article->getOneArticleById($id);
+            echo json_encode($array) ;
         }
     }
 
