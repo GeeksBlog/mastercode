@@ -282,10 +282,10 @@ class ArticleController
     // Pour afficher un article spécifique=>api
     public function apigetOneArticleById()
     {
-        if (isset($_GET["id"])) {
+        if (isset($_GET["articleid"])) {
             // instanciation de la classe model article
             $this->article = new Article();
-            $id = $this->datadecrypt($_GET["id"]);
+            $id = $this->datadecrypt($_GET["articleid"]);
             $array = $this->article->getOneArticleById($id);
             echo json_encode($array) ;
         }

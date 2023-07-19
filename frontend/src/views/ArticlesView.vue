@@ -1,27 +1,23 @@
 <template>
    
-   <div class="container px-2 mx-auto">
-        <section class="grid gap-2 mt-12 md:grid-cols-3">
+   <div class="py-2 mx-auto ">
+        <section class="container grid gap-2 mt-2 md:grid-cols-3">
 
             <main class="relative col-span-2 md:mr-2">
-                <h1 class="text-3xl font-bold text-gray-800">{{ article.article_title }}</h1>
+                
+
+                <div class="flex justify-center border">
+                    <img v-bind:src="`http://localhost/ressources/images/images_principales/${article.article_image}`" class="cursor-pointer" alt="placeholder tag" />
+                </div>
+                <h1 class="mt-3 text-3xl font-bold text-gray-800">{{ article.article_title }}</h1>
                 <div class="flex items-center gap-4 my-2 mt-2">
                     <div class="w-10 h-10 bg-gray-300 rounded-full"></div>
                     <div class="text-gray-500">
                         Par <span class="text-gray-800 cursor-pointer">{{ article.user_pseudo }}</span> le {{ article.created_at }}
                     </div>
                 </div>
-
-                <div class="flex justify-center border">
-                    <img v-bind:src="`http://localhost/ressources/images/images_principales/${article.article_image}`" class="cursor-pointer" alt="placeholder tag" />
+                <div v-html="article.code_html">
                 </div>
-        
-                <article>
-                    <section v-html="article.code_html">
-                       
-                    </section>
-
-                </article>
                 <form id="comment">
                     <textarea placeholder="your comment" cols="5" rows="6"
                         class="w-full p-4 text-xl font-semibold text-gray-800 bg-gray-100 rounded outline-none focus:outline-none"></textarea>

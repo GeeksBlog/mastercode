@@ -89,9 +89,9 @@ export default {
 <style>
 .active {
   background-color: #3798A6;
-  color: white;
+  
   border-radius: 1rem;
-  padding: 0.3rem;
+  
 }
 
 .active>a {
@@ -301,7 +301,7 @@ export default {
     </div>
   </header>
 
-  <div class="flex w-full h-[93vh] mt-6 overflow-x-auto bg-white rounded-lg shadow-xl custom-scrollbar">
+  <div class="flex w-full h-[93vh] mt-6 overflow-x-auto bg-white rounded-lg shadow-xl">
     <div class="w-64 px-4" v-if="asideopen">
 
       <div class="px-2 pt-4 pb-8 border-r border-gray-300">
@@ -314,7 +314,7 @@ export default {
 
           <li :class="{ 'active': $route.path === '/' }">
             <router-link to="/" exact
-              class="bg-opacity-30 text-[#0d2a2e] flex items-center justify-between py-1.5 px-4  cursor-pointer">
+              class="bg-opacity-30 text-[#0d2a2e] flex items-center justify-between py-1.5 px-4 cursor-pointer">
               <span class="flex items-center space-x-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                   stroke="currentColor" class="w-6 h-6">
@@ -326,7 +326,6 @@ export default {
                 </span>
               </span>
             </router-link>
-
           </li>
           <li>
             <a
@@ -422,6 +421,7 @@ export default {
       </div>
     </div>
 
-    <RouterView />
+    <router-view></router-view>
+   
   </div>
 </template>
