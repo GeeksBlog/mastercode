@@ -88,32 +88,34 @@ export default {
 </script>
 <style>
 .active {
-  background-color: #3798A6;
-  
+  background-color: #f2f2f2;
+
   border-radius: 1rem;
-  
+
 }
 
 .active>a {
-  color: white;
+  color: black;
+}
+.active>a span svg {
+  fill: black;
 }
 </style>
 <template>
-  <header class="w-full text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font">
+  <header class="w-full mt-2 text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font">
     <div class="flex items-center justify-between py-1 mr-4 md:flex-row">
 
-      <nav class="fixed z-30 w-full pt-3 bg-white border-b border-gray-200">
+      <nav class="fixed z-30 w-full pt-3 bg-white border-gray-200">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
           <div class="flex items-center justify-between">
             <div class="flex items-center justify-start">
               <button id="toggleSidebarMobile" @click="asidetoogle" aria-expanded="true" aria-controls="sidebar"
                 class="p-2 text-gray-600 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100">
-                <svg id="toggleSidebarMobileHamburger" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd"
-                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                    clip-rule="evenodd"></path>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="w-8 h-8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
+
               </button>
               <a href="#" class="text-xl font-bold flex items-center gap-1 lg:ml-2.5">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256"
@@ -156,20 +158,26 @@ export default {
                 </svg>
                 <span class="self-center whitespace-nowrap">MasterCode</span>
               </a>
-              <form action="#" method="GET" class="hidden lg:block lg:pl-32">
-                <label for="topbar-search" class="sr-only">Search</label>
-                <div class="relative mt-1 lg:w-64">
+
+
+            </div>
+            <div class="flex items-center justify-start">
+              <form>
+                <label for="default-search"
+                  class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div class="relative">
                   <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd"
-                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                        clip-rule="evenodd"></path>
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                     </svg>
                   </div>
-                  <input type="text" name="email" id="topbar-search"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full pl-10 p-2.5"
-                    placeholder="Search">
+                  <input type="search" id="default-search"
+                    class="block p-4 pl-10 text-sm text-gray-900 rounded-tl-full rounded-tr-full rounded-bl-full rounded-br-full border-2 border-gray-300 rounded-lg w-[35rem] bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Rechercher un article..." required>
+                  <button type="submit"
+                    class="text-white absolute right-2.5 bottom-2.5 bg-[#3798A6] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                 </div>
               </form>
             </div>
@@ -301,21 +309,14 @@ export default {
     </div>
   </header>
 
-  <div class="flex w-full h-[93vh] mt-6 overflow-x-auto bg-white rounded-lg shadow-xl">
-    <div class="w-64 px-4" v-if="asideopen">
-
-      <div class="px-2 pt-4 pb-8 border-r border-gray-300">
+  <div class="flex w-full h-[93vh] mt-4 overflow-x-auto bg-white rounded-lg shadow-xl">
+    <div class="w-64" v-if="asideopen">
+      <div class="px-2 pt-4 pb-8 border-gray-300">
         <ul class="flex flex-col gap-2 space-y-2">
-
-          <!-- <li :class="{ 'active': $route.path === '/prestations' }" class="px-3 py-2 font-medium hover:text-gray-300">
-             <router-link to="/prestations" exact>Prestations</router-link> 
-            <a href="/prestations" class="px-3 py-2 font-medium hover:text-gray-300">Prestations</a>
-          </li> -->
-
           <li :class="{ 'active': $route.path === '/' }">
             <router-link to="/" exact
-              class="bg-opacity-30 text-[#0d2a2e] flex items-center justify-between py-1.5 px-4 cursor-pointer">
-              <span class="flex items-center space-x-2">
+              class="bg-opacity-30 text-[#0d2a2e] flex items-center justify-between py-1.5 cursor-pointer">
+              <span class="flex items-center p-2 space-x-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                   stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round"
@@ -329,7 +330,7 @@ export default {
           </li>
           <li>
             <a
-              class="hover:bg-gray-500 hover:bg-opacity-10 hover:text-blue-600 flex items-center text-gray-700 py-1.5 px-4 rounded space-x-2 cursor-pointer">
+              class="hover:bg-gray-500 hover:bg-opacity-10 hover:text-blue-600 flex items-center text-gray-700 py-1.5 px-2 rounded space-x-2 cursor-pointer">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -339,10 +340,10 @@ export default {
               <span>Tendance</span>
             </a>
           </li>
-          <li :class="{ 'active': $route.path === '/abonnement' }">
+          <li :class="{ 'active': $route.path === '/abonnement' } ">
             <router-link to="/abonnement" exact
-              class="bg-opacity-30 text-[#0d2a2e] flex items-center justify-between py-1.5 px-4  cursor-pointer">
-              <span class="flex items-center space-x-2">
+              class="bg-opacity-30 text-[#0d2a2e] flex items-center justify-between py-1.5  cursor-pointer">
+              <span class="flex items-center p-2 space-x-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                   stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round"
@@ -422,6 +423,6 @@ export default {
     </div>
 
     <router-view></router-view>
-   
+
   </div>
 </template>

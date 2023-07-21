@@ -2,27 +2,18 @@
 <template>
   <div class="flex-1 px-2">
     <div class="flex items-center justify-between h-16">
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2 mt-1">
+       
         <a href="#"
-          class="flex items-center text-gray-700 px-2 py-1 space-x-0.5 border border-gray-300 rounded-lg shadow hover:bg-gray-200 transition duration-100"
-          title="Back">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd"
-              d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
-              clip-rule="evenodd"></path>
-          </svg>
-          <span class="text-sm font-bold">Back</span>
-        </a>
-        <a href="#"
-          class="flex items-center text-gray-700 px-2 py-1 space-x-0.5 border border-gray-300 rounded-lg shadow hover:bg-gray-200 transition duration-100"
-          title="Back">
+          class="flex items-center px-2 py-1 text-gray-700 transition duration-100 border border-gray-300 rounded-lg shadow hover:bg-gray-200"
+          title="all">
 
-          <span class="text-sm font-bold">Tout</span>
+          <span class="p-1 text-sm font-bold">Tout</span>
         </a>
         <a href="#" v-for="categorie in categories"
-          class="flex items-center text-gray-700 px-2 py-1 space-x-0.5 border border-gray-300 rounded-lg shadow hover:bg-gray-200 transition duration-100"
+          class="flex p-2 items-center text-gray-700 px-2 py-1 space-x-0.5 border border-gray-300 rounded-lg shadow hover:bg-gray-200 transition duration-100"
           title="Back">
-          <span class="text-sm font-bold">{{ categorie.category_name }}</span>
+          <span class="p-1 text-sm font-bold">{{ categorie.category_name }}</span>
         </a>
         <!-- <div class="flex items-center">
           <span class="bg-gray-300 h-6 w-[.5px] mx-3"></span>

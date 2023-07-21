@@ -1,5 +1,5 @@
 <template>
-    <div class="container py-8 mx-auto">
+    <div class="container py-8 mx-auto lg:mt-9">
 
         <form class="w-full max-w-sm p-8 mx-auto bg-white rounded-md shadow-md">
             <div class="flex items-center justify-center py-4 mx-auto">
